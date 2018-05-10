@@ -6,10 +6,12 @@ Created on May 8, 2018
 Tries to auto generate a message for each person based on the holiday or other significant event.
 Other pieces later may add in auto sending or alerts prompting confirmation.  
 '''
+from pip._vendor.distlib.compat import raw_input
 import datetime
 now = datetime.datetime.now()
 importantDates = ["4.1", "4.20", "5.1"]
 sobotOutput = open("SobotSays.txt","w+")
+sobotInput = open("SobotDates.txt","r+")
 
 # creates the last "from, me" line
 def greeting(addresseName):
@@ -34,6 +36,23 @@ def celebrationBody():
     else:
         sobotOutput.write("I don't know why I'm writing you, but GOOD TO KNOW YA!")
 
-greeting("EXAMPLE_NAME") 
-celebrationBody()
-goodbyeMessage("Sam")
+'''
+This is pretty much the main method
+'''
+print("Welcome to SOBOT!\n")
+userInput = ""
+while (userInput != "exit"):
+    userInput = raw_input("Enter command >> ")
+    if (userInput == "addDate"):
+        userDate = raw_input("Date to add: ")
+        sobotInput.write(userDate)
+    elif (userInput == "createLetter"):
+        greeting("EXAMPLE_NAME") 
+        celebrationBody()
+        goodbyeMessage("Sam")
+    elif (userInput == "exit"):
+        print("Goodbye.")
+    elif (userInput == "help"):
+        print("'addDate'\tAdds a new date to the database.\n'createLetter'\tGenerate a letter for today.")
+    else:
+        print("Invalid command")
